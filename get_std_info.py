@@ -10,7 +10,6 @@ def get_acc_info(s):
     soup = bs(str(page), "html.parser")
     link = soup.a["href"]
     link = link[2:]
-    print(host+link)
     undertaking = s.get(host+link)
     stdid, date, year = get_values(undertaking.content)
     payload = {"stdid":stdid, "date":date, "session":year, "checkbox":"on",\
