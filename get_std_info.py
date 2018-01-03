@@ -9,18 +9,25 @@ def get_acc_info(s):
     page = acc_page.content
     soup = bs(str(page), "html.parser")
     link = soup.a["href"]
-    undertaking = s.get(link)
+    link = link[2:]
+    print(host+link)
+    undertaking = s.get(host+link)
     stdid, date, year = get_values(undertaking.content)
     payload = {"stdid":stdid, "date":date, "session":year, "checkbox":"on",\
     "button":"I Accept", "MM_insert":"form2", "token":link[59:]}
     return payload
 
 def get_values(page):
-    print(page)
-    soup = bs(str(page), "html.parser")
+    main_soup = bs(str(page), "html.parser")
+    stdid = main_soup.find("input", attrs={"id":"stdid"})
+    soup = bs(str(stdid), "html.parser")
     stdid = soup.input["value"]
-    date = soup.input.input["value"]
-    year = soup.input.input.input["value"]
+    date = main_soup.find("input", attrs={"id":"date"})
+    soup = bs(str(date), "html.parser")
+    date = soup.input["value"]
+    year = main_soup.find("input", attrs={"id":"session"})
+    soup = bs(str(year), "html.parser")
+    year = soup.input["value"]
     return stdid, date, year
 
 

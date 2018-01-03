@@ -13,7 +13,7 @@ host = "https://portal.abu.edu.ng"
 payload = {"username":"u13ce1096", "password":"zamfara"}
 with requests.Session() as s:
     login = s.post(host+"/index.php", data=payload)
-    print("logged in as %s"%payload['username'])
+    print("logged in as %s"%(payload['username']))
     #acc_page = s.get(host+"/abudashboard/?t=wu3povrfdj")
     page_cont = s.get(host+"/abudashboard/sites/accommodation/accommodation.php")
 print(page_cont.content)
@@ -31,3 +31,13 @@ soup = bs(open(os.getcwd()+"/acc_cont.html", "r"), "html.parser")
 link = soup.a["href"]
 print(link)
 """
+
+with open(os.getcwd()+"/undertaking.html", "r") as f:
+    page = f.readlines()
+
+soup = bs(str(page), "html.parser")
+inputs = soup.find_all("input")
+soup = bs(inputs[0], 'html.parser')
+print(soup.input["value"])
+#with open(os.getcwd()+"/clean_undertaking.html", "w") as f:
+#    f.write(str(clean))
