@@ -16,6 +16,7 @@ def get_acc_info(s):
     return payload
 
 def get_values(page):
+    print(page)
     soup = bs(str(page), "html.parser")
     stdid = soup.input["value"]
     date = soup.input.input["value"]
